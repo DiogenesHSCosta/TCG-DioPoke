@@ -1,6 +1,7 @@
 import Express from "express";
-import middlewares from "./Middlewares/config.js";
 import Cors from "cors";
+import middlewares from "./Middlewares/config.js";
+import db from "./Database/sqlite.js";
 
 const app = Express()
 
