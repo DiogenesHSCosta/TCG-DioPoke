@@ -3,15 +3,13 @@
   "version": "1.0.0",
   "description": "API de comparaçao de cartas ",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/DiogenesHSCosta/TCG-DioPoke.git"
-  },
   "author": "Diógenes Costa",
-  "license": "MIT"
-
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
