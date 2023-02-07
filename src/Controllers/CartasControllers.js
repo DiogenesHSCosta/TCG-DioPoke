@@ -17,9 +17,24 @@ const CardsControllers = (app, db)=>{
     //Listar uma carta
     app.get("/Cartas/:id", async (request, response) =>{
         try {
-            
+            const id = request.params.id
+            const retorno = await cartasDao.selecionarCartas(id)
+            response.send(retorno)
+            const comparar = retorno
+            console.log(comparar)
+
+            // new Promise((res, rej) =>{
+            //     db.all("SELECT rowid AS idTemporario FROM Cards WHERE nome = ?", id, (erro, linhas) =>{
+            //         if(!erro){
+            //             res(linhas)
+            //         }
+            //         else{
+            //             rej(erro)
+            //         }})
+            //     }).then(console.log)
+
         } catch (erro) {
-            
+            console.log(erro)
         }
     })
 
@@ -27,17 +42,21 @@ const CardsControllers = (app, db)=>{
         try {
             const retorno = await cartasDao.criarCarta(request)
             response.send(retorno)
+            
         } 
         catch (erro) {
             console.log(erro)
         }
+
     })
 
     app.delete("/Cartas/:id", async (request, response) =>{
         try {
-            
+            const id = request.params.id
+            const retorno = await cartasDao.excluirCarta(id)
+            response.send(retorno)
         } catch (erro) {
-            
+            console.log(erro)
         }
     })
 

@@ -4,7 +4,7 @@ class CartasDAO{
     }
 
     selecionarTodasCartas(){
-        const SQL = "SELECT rowid, Nome, Speed, Hp, Attack, Defense, SpecialAttack, SpecialDefense FROM Cards"
+        const SQL = "SELECT rowid AS id, Nome, Speed, Hp, Attack, Defense, SpecialAttack, SpecialDefense FROM Cards"
 
         return new Promise((res, rej) =>{
             this.db.all(SQL, (erro, linhas) =>{
@@ -18,11 +18,22 @@ class CartasDAO{
         })
     }
 
-    selecionarCartas(){
-
+    selecionarCartas(id){
+        const SQL = `SELECT rowid AS id, Nome, Speed, Hp, Attack, Defense, SpecialAttack, SpecialDefense FROM Cards WHERE rowid = ?`
+        return new Promise((res, rej) =>{
+            this.db.all(SQL, id, (erro, linhas)=>{
+                if(!erro){
+                    res(linhas)
+                }
+                else{
+                    rej(erro)
+                }
+            })
+        })
     }
     
     criarCarta(request){
+
         const SQL = `INSERT INTO Cards(Nome, Speed, Hp, Attack, Defense, SpecialAttack, SpecialDefense)
         values(?, ?, ?, ?, ?, ?, ?)`
 
@@ -40,7 +51,7 @@ class CartasDAO{
                 ],
                 (erro) =>{
                     if(!erro){
-                        this.db.run(`A carta de nome ${request.body.nome} de id =`)
+                        res(`Carta criada`)
                     }
                     else{
                         rej(erro)
@@ -49,8 +60,18 @@ class CartasDAO{
         })
     }
 
-    excluirCarta(){
-
+    excluirCarta(id){
+        const SQL = `DELETE FROM Cards WHERE rowid = ?`
+        return new Promise((res, rej) =>{
+            this.db.all(SQL, id, (erro)=>{
+                if(!erro){
+                    res("Carta deletada com sucesso")
+                }
+                else{
+                    rej(erro)
+                }
+            })
+        })
     }
 }
 
