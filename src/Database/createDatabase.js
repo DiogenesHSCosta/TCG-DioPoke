@@ -25,7 +25,6 @@ const enableForeignKey= ()=>{
 //Criação da tabela Cards
 const CARDS_SCHEMAS =`
 CREATE TABLE Cards(
-    Id INT PRIMARY KEY,
     Nome VARCHAR(50),
     Speed INT,
     Hp INT,
@@ -38,37 +37,30 @@ CREATE TABLE Cards(
 
 const SCORE_SCHEMAS =`
 CREATE TABLE Score(
-    Id INT PRIMARY KEY,
     PontosJogador1 INT,
     PontosJogador2 INT
 )`
 
 const ROUND_SCHEMAS =`
 CREATE TABLE RoundHistory(
-    Id INT PRIMARY KEY,
-    Placar_Id INT,
     Vencedor INT,
     Hp INT,
     Attack INT,
     Defense INT,
     SpecialAttack INT,
     SpecialDefense INT,
-    Speed INT,
-    
-    FOREIGN KEY (Placar_Id) REFERENCES Score(Id)
+    Speed INT
 )`
 
-const CARD_ROUND_SCHEMAS =`
-CREATE TABLE CardRound(
-    IdCartaJogador1 INT,
-    IdCartaJogador2 INT,
-    IdRodada INT,
-    
-    FOREIGN KEY (IdCartaJogador1) REFERENCES Card(Id),
-    FOREIGN KEY (IdCartaJogador2) REFERENCES Card(Id),
-    FOREIGN KEY (IdRodada) REFERENCES RoundHistory(Id)
-)`
 
+
+
+const inserir= `INSERT INTO Score(PontosJogador1, PontosJogador2) values (0,0)`
+const InserirTabelaScore =() =>{
+    db.run(inserir, (erro) =>{
+        if(erro) console.log("Erro na inserção tabela Score")
+    })
+}
 const CreateTableCards = () =>{
     db.run(CARDS_SCHEMAS, (erro) =>{
         if(erro) console.log("Erro na criação da tabela Cards")
@@ -84,16 +76,12 @@ const CreateTableRound = () =>{
         if(erro) console.log("Erro na criação da tabela Round")
     })
 }
-const CreateTableCARD_ROUND = () =>{
-    db.run(CARD_ROUND_SCHEMAS, (erro) =>{
-        if(erro) console.log("Erro na criação da tabela CardRound")
-    })
-}
+
 
 db.serialize(()=>{
     enableForeignKey()
     CreateTableScore()
     CreateTableCards()
     CreateTableRound()
-    CreateTableCARD_ROUND()
+    InserirTabelaScore()
 })

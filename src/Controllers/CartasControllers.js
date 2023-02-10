@@ -21,17 +21,7 @@ const CardsControllers = (app, db)=>{
             const retorno = await cartasDao.selecionarCartas(id)
             response.send(retorno)
             const comparar = retorno
-            console.log(comparar)
-
-            // new Promise((res, rej) =>{
-            //     db.all("SELECT rowid AS idTemporario FROM Cards WHERE nome = ?", id, (erro, linhas) =>{
-            //         if(!erro){
-            //             res(linhas)
-            //         }
-            //         else{
-            //             rej(erro)
-            //         }})
-            //     }).then(console.log)
+            console.log(comparar.length)
 
         } catch (erro) {
             console.log(erro)
