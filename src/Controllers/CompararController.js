@@ -24,13 +24,18 @@ const CompararController = (app, db) =>{
 
             const conversao =[conversaoj1[0], conversaoj2[0] ]
 
-            let comparar = new CompararModel(conversao)
-            const historico = comparar.comparar()
-            const resultadoFinal = comparar.jogo(historico)
+
+            const compararModel = new CompararModel(conversao)
+            const historico = compararModel.comparar()
+            const resultadoFinal = compararModel.jogo(historico)
+
+
             const resultadoPlacar = await compararDao.cadastrarRodada(historico)
 
-            response.send(resultadoFinal)     
-            console.log(resultadoPlacar, resultadoFinal)
+            const placar = await compararDao.DescobrirPlacar()
+            const test = compararDao.AtualizarPlacar(historico, placar)
+
+            response.send(resultadoFinal)
         } catch (erro) {
             console.log(erro)
         }

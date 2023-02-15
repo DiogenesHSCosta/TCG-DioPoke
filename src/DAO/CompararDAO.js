@@ -30,9 +30,9 @@ class CompararDao{
         })
     }
     DescobrirPlacar(){
-        const SQL=`SELECT PontosJogador1, PontosJogador2 FROM Score WHERE rowid = 1`
+        const SQL="SELECT * FROM Score"
         return new Promise((res, rej) =>{
-            this.db.all(SQL, id_1, (erro, linhas)=>{
+            this.db.all(SQL, (erro, linhas)=>{
                 if(!erro){
                     res(linhas)
                 }
@@ -43,8 +43,7 @@ class CompararDao{
         })
         
     }
-    AtualizarPlacar(comparar){
-        const descobrir = this.DescobrirPlacar()
+    AtualizarPlacar(comparar, descobrir){
 
         const conversaoPlacar = descobrir.map( (element) =>{
             return Object.keys(element).map((key) =>{
@@ -59,10 +58,10 @@ class CompararDao{
         else if(comparar[6] == "Jogador 2"){
             placar[1] +=1
         }
-
+        
         const SQL=`Update Score SET PontosJogador1 = ?, PontosJogador2 = ? WHERE rowid = 1`
         return new Promise((res, rej) =>{
-             this.db.all(SQL, [placar[0], placar[1]], (erro, linhas) =>{
+             this.db.all(SQL, [placar[0], placar[1]], (erro) =>{
                 if(!erro){
                     res(placar)
                 }
@@ -94,8 +93,7 @@ class CompararDao{
                     rej(erro)
                 }
             })
-            // const teste = this.AtualizarPlacar(comparar)
-            // console.log(teste)
+            
         })
     }
 
