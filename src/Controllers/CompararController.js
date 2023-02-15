@@ -30,10 +30,9 @@ const CompararController = (app, db) =>{
             const resultadoFinal = compararModel.jogo(historico)
 
 
-            const resultadoPlacar = await compararDao.cadastrarRodada(historico)
-
+            compararDao.cadastrarRodada(historico)
             const placar = await compararDao.DescobrirPlacar()
-            const test = compararDao.AtualizarPlacar(historico, placar)
+            compararDao.AtualizarPlacar(historico, placar)
 
             response.send(resultadoFinal)
         } catch (erro) {

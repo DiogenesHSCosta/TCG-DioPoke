@@ -20,8 +20,6 @@ const CardsControllers = (app, db)=>{
             const id = request.params.id
             const retorno = await cartasDao.selecionarCartas(id)
             response.send(retorno)
-            const comparar = retorno
-            console.log(comparar.length)
 
         } catch (erro) {
             console.log(erro)

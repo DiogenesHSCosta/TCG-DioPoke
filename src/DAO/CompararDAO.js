@@ -60,7 +60,7 @@ class CompararDao{
         }
         
         const SQL=`Update Score SET PontosJogador1 = ?, PontosJogador2 = ? WHERE rowid = 1`
-        return new Promise((res, rej) =>{
+        new Promise((res, rej) =>{
              this.db.all(SQL, [placar[0], placar[1]], (erro) =>{
                 if(!erro){
                     res(placar)
@@ -75,7 +75,7 @@ class CompararDao{
         const SQL = `INSERT INTO RoundHistory(Hp, Attack, Defense, SpecialAttack, SpecialDefense, Speed, Vencedor)
         values(?, ?, ?, ?, ?, ?, ?)`
 
-        return new Promise((res, rej) =>{
+        new Promise((res, rej) =>{
             this.db.all(SQL,
                 [
                     comparar[0],
